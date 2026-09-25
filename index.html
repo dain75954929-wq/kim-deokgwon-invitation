@@ -68,7 +68,7 @@
   .paint.top { top: 0; height: 120px; }
   .paint.bottom { bottom: 0; height: 180px; }
   .title-block { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
-  h1 { font-weight: 500; font-size: clamp(26px, 7.8vw, 36px); line-height: 1.4; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  h1 { font-weight: 700; font-size: clamp(30px, 9vw, 40px); line-height: 1.35; color: #1B2833; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
   .theme {
     display: flex;
     align-items: center;
@@ -78,9 +78,18 @@
     color: var(--sea);
     letter-spacing: .12em;
   }
-  .theme svg { width: 26px; height: 10px; color: var(--sea-light); }
-  .facts { display: flex; flex-direction: column; align-items: center; gap: 22px; position: relative; }
-  .fact { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  /* 항목 이름(왼쪽) + 내용(오른쪽) 두 칸 */
+  .facts, .schedule {
+    position: relative;
+    display: grid;
+    grid-template-columns: max-content auto;
+    justify-content: center;
+    column-gap: 14px;
+    row-gap: 16px;
+    text-align: left;
+  }
+  .fact { display: contents; }
+  .fact .pill { justify-self: stretch; text-align: center; align-self: start; margin-top: 2px; }
   .pill {
     display: inline-block;
     background: var(--navy);
@@ -90,8 +99,8 @@
     padding: 2px 14px;
     border-radius: 999px;
   }
-  .fact p { font-size: 19px; line-height: 1.55; font-variant-numeric: tabular-nums; }
-  .fact p small { display: block; font-size: 17px; color: var(--muted); }
+  .fact p { font-size: 17px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+  .fact p small { display: block; font-size: 15px; color: var(--muted); }
 
   /* ── 상세: 옅은 바탕 위에 항목마다 테두리 상자 ── */
   .details {
@@ -134,7 +143,6 @@
   .greeting p + p { margin-top: 1.2em; }
   .signature { font-size: 18px; font-weight: 500; }
   .signature span { color: var(--muted); font-size: 14px; font-weight: 400; margin-right: 8px; }
-  .schedule { display: flex; flex-direction: column; align-items: center; gap: 22px; }
   .notice { font-size: 17px; line-height: 1.9; }
   .closing-block { display: flex; flex-direction: column; align-items: center; gap: 16px; padding-block: 20px 12px; }
   .closing { font-size: 18px; line-height: 2; color: var(--ink); }
@@ -262,6 +270,9 @@
     padding: 14px;
     cursor: pointer;
   }
+  .phone-num { font-size: 24px; font-weight: 700; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+  a.solid-btn { display: block; text-decoration: none; }
+  .line-btn.wide { border-radius: 10px; padding: 12px; font-size: 16px; }
   .hint { font-size: 14px; color: var(--muted); min-height: 1.6em; }
   .popup-actions { display: grid; gap: 8px; }
 </style>
@@ -274,14 +285,12 @@
     <canvas class="paint top" id="paint-top" aria-hidden="true"></canvas>
     <div class="title-block">
       <p class="theme">
-        <svg viewBox="0 0 26 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 5c3-4 6-4 8 0s5 4 8 0 5-4 8 0"/></svg>
         통영을 담다
-        <svg viewBox="0 0 26 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 5c3-4 6-4 8 0s5 4 8 0 5-4 8 0"/></svg>
       </p>
       <h1>제2회 김덕권 개인전에<br>초대합니다</h1>
     </div>
     <div class="facts">
-      <div class="fact"><span class="pill">일시</span><p>2026년 11월 21일(토) ~ 29일(일)<small>오전 10시 ~ 오후 5시</small></p></div>
+      <div class="fact"><span class="pill">일시</span><p>11월 21일(토) ~ 29일(일)<small>오전 10시 ~ 오후 5시</small></p></div>
       <div class="fact"><span class="pill">장소</span><p>통영시민문화회관<small>제1전시실</small></p></div>
     </div>
     <canvas class="paint bottom" id="paint-bottom" aria-hidden="true"></canvas>
@@ -341,8 +350,12 @@
 <div class="scrim" id="scrim" hidden>
   <div class="popup" id="pop-call" role="dialog" aria-modal="true" aria-labelledby="call-h" hidden>
     <h3 id="call-h">전화</h3>
-    <div class="slot">연락처가 들어갈 자리입니다.<br>번호를 받으면 넣겠습니다.</div>
-    <button class="close" type="button">닫기</button>
+    <p class="phone-num" id="phone">010-4087-9490</p>
+    <div class="popup-actions">
+      <a class="solid-btn" href="tel:01040879490">전화 걸기</a>
+      <button class="line-btn wide" id="copy-phone" type="button">번호 복사</button>
+      <button class="close" type="button">닫기</button>
+    </div>
   </div>
 
   <div class="popup" id="pop-map" role="dialog" aria-modal="true" aria-labelledby="map-h" hidden>
@@ -517,6 +530,13 @@
       copy(document.getElementById('addr').textContent,
         function () { show('복사되었습니다'); },
         function () { show('주소를 길게 눌러 복사해 주세요'); });
+    });
+    var phoneBtn = document.getElementById('copy-phone');
+    phoneBtn.addEventListener('click', function () {
+      function show(msg) { phoneBtn.textContent = msg; setTimeout(function () { phoneBtn.textContent = '번호 복사'; }, 2000); }
+      copy(document.getElementById('phone').textContent,
+        function () { show('복사되었습니다'); },
+        function () { show('번호를 길게 눌러 복사해 주세요'); });
     });
     var urlInput = document.getElementById('share-url');
     if (/github\.io$/.test(location.hostname)) urlInput.value = location.origin + location.pathname;
