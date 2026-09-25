@@ -141,6 +141,7 @@
     background: #FFFFFF;
     border: 1px solid #D3E0E7;
     border-radius: 14px;
+    box-shadow: 0 8px 22px -12px rgba(34,58,80,.28);
     width: 100%;
     max-width: 340px;
     box-sizing: border-box;
@@ -366,8 +367,7 @@
 </nav>
 
 <div class="scrim" id="scrim" hidden>
-  <div class="popup" id="pop-call" role="dialog" aria-modal="true" aria-labelledby="call-h" hidden>
-    <h3 id="call-h">전화</h3>
+  <div class="popup" id="pop-call" role="dialog" aria-modal="true" aria-label="전화" hidden>
     <p class="phone-num" id="phone">010-4087-9490</p>
     <div class="popup-actions">
       <a class="solid-btn" href="tel:01040879490">전화 걸기</a>
@@ -375,13 +375,13 @@
     </div>
   </div>
 
-  <div class="popup" id="pop-map" role="dialog" aria-modal="true" aria-labelledby="map-h" hidden>
-    <h3 id="map-h">오시는 길</h3>
+  <div class="popup" id="pop-map" role="dialog" aria-modal="true" aria-label="오시는 길" hidden>
     <p class="place-name">통영시민문화회관 제1전시실</p>
     <div class="address">
       <p id="addr">경남 통영시 남망공원길 29</p>
       <button class="line-btn" id="copy-addr" type="button">주소 복사</button>
     </div>
+    <p class="park">회관 주차장을 이용하실 수 있습니다.<small>유료 · 가까운 공영주차장(걸어서 3분)도 있습니다</small></p>
     <div class="map-links">
       <a href="https://place.map.kakao.com/8621139" target="_blank" rel="noopener">
         <svg viewBox="0 0 28 28" aria-hidden="true">
@@ -399,7 +399,6 @@
         네이버 지도
       </a>
     </div>
-    <p class="park">회관 주차장을 이용하실 수 있습니다.<small>유료 · 가까운 공영주차장(걸어서 3분)도 있습니다</small></p>
     <button class="close" type="button">닫기</button>
   </div>
 
