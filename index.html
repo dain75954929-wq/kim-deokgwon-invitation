@@ -27,7 +27,7 @@
     --sea-light: #5FB2E6;
     --line: #E2E9EC;
     --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    --bar-h: 68px;
+    --bar-h: 0px;
   }
   html, body { background: var(--bg-soft); }
   body {
@@ -153,8 +153,8 @@
     align-items: center;
     gap: 14px;
   }
-  /* 항목 제목(초대의 말·전시 일정·안내 말씀, 팝업 제목): 바다색 굵은 글자 */
-  h2, .popup h3 {
+  /* 항목 제목(초대의 말·전시 일정·오시는 길·안내 말씀): 바다색 굵은 글자 */
+  h2 {
     margin: 0;
     color: var(--sea);
     font-size: 21px;
@@ -179,81 +179,7 @@
   .closing { font-size: 18px; line-height: 2; color: var(--ink); }
   .from { font-size: 17px; font-weight: 500; letter-spacing: .1em; }
 
-  /* ── 하단 3분할 메뉴 ── */
-  .tabbar {
-    position: fixed;
-    left: 0; right: 0; bottom: 0;
-    z-index: 10;
-    max-width: 480px;
-    margin-inline: auto;
-    background: var(--sea);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .tabbar button {
-    height: var(--bar-h);
-    border: 0;
-    background: transparent;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .tabbar button:active { background: rgba(255,255,255,.14); }
-  .tabbar svg { width: 24px; height: 24px; color: #FFFFFF; }
-  .tabbar :focus-visible { outline-color: #FFFFFF; outline-offset: -4px; }
-
-  /* ── 가운데 팝업 ── */
-  .scrim {
-    position: fixed; inset: 0; z-index: 20;
-    background: rgba(24,34,44,.5);
-    display: grid;
-    grid-template-columns: minmax(0, 340px);
-    justify-content: center;
-    align-content: center;
-    padding: 24px;
-  }
-  .popup {
-    min-width: 0;
-    max-height: 80svh;
-    overflow-y: auto;
-    box-sizing: border-box;
-    background: #FFFFFF;
-    color: var(--ink);
-    /* 항목 상자와 같은 모양 */
-    border: 1px solid #D3E0E7;
-    border-radius: 14px;
-    padding: 30px 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    text-align: center;
-    box-shadow: 0 20px 50px -20px rgba(0,0,0,.45);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .popup:not([hidden]) { animation: pop .2s ease-out; }
-    @keyframes pop { from { transform: scale(.96); opacity: .6; } to { transform: none; opacity: 1; } }
-  }
-  .popup h3 { align-self: center; }
-  .popup .slot { font-size: 15px; }
-  .close {
-    border: 0;
-    background: var(--bg-soft);
-    color: var(--ink);
-    font-size: 16px;
-    font-weight: 500;
-    padding: 13px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  .place { display: flex; flex-direction: column; gap: 2px; }
+  /* 오시는 길 */
   .place-name { font-size: 20px; font-weight: 700; line-height: 1.4; }
   .address { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 10px; row-gap: 6px; font-size: 17px; }
   .address .line-btn { padding: 4px 12px; font-size: 13px; white-space: nowrap; }
@@ -266,7 +192,7 @@
     padding: 6px 16px;
     cursor: pointer;
   }
-  .map-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .map-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-self: stretch; }
   .icon-btn, .map-links a {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     padding: 13px 6px;
@@ -280,21 +206,6 @@
   .icon-btn svg, .map-links svg { width: 26px; height: 26px; flex: none; }
   .park { font-size: 16px; color: var(--ink); }
   .park small { display: block; font-size: 14px; color: var(--muted); }
-  .solid-btn {
-    border: 0;
-    border-radius: 10px;
-    background: var(--navy);
-    color: #FFFFFF;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 14px;
-    cursor: pointer;
-  }
-  .phone-num { font-size: 24px; font-weight: 700; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
-  a.solid-btn { display: block; text-decoration: none; }
-  .line-btn.wide { border-radius: 10px; padding: 12px; font-size: 16px; }
-  .hint { font-size: 14px; color: var(--muted); min-height: 1.6em; }
-  .popup-actions { display: grid; gap: 8px; }
 </style>
 </head>
 <body>
@@ -340,56 +251,14 @@
       </div>
     </section>
 
-    <section aria-labelledby="n-h">
-      <h2 id="n-h">안내 말씀</h2>
-      <p class="notice">축하의 마음만 감사히 받겠습니다.<br>화환과 선물은 정중히 사양합니다.</p>
-    </section>
-
-    <div class="closing-block">
-      <p class="closing">귀한 걸음 하시어<br>자리를 빛내 주시면<br>더없는 기쁨이겠습니다.</p>
-      <p class="from">김덕권 드림</p>
-    </div>
-  </div>
-</main>
-
-<nav class="tabbar" aria-label="바로가기">
-  <button type="button" data-open="pop-call">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
-    전화
-  </button>
-  <button type="button" data-open="pop-map">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-    오시는 길
-  </button>
-  <button type="button" id="to-top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-    맨 위로
-  </button>
-</nav>
-
-<div class="scrim" id="scrim" hidden>
-  <div class="popup" id="pop-call" role="dialog" aria-modal="true" aria-label="전화" hidden>
-    <p class="phone-num" id="phone">010-4087-9490</p>
-    <div class="popup-actions">
-      <a class="icon-btn" href="tel:01040879490">
-        <svg viewBox="0 0 28 28" aria-hidden="true">
-          <rect width="28" height="28" rx="7" fill="#1167A8"/>
-          <path d="M9.6 7.5h2.6l1.3 3.3-1.7 1a7.2 7.2 0 0 0 3.4 3.4l1-1.7 3.3 1.3v2.6a1.3 1.3 0 0 1-1.3 1.3A10.4 10.4 0 0 1 8.3 8.8a1.3 1.3 0 0 1 1.3-1.3z" fill="#FFFFFF"/>
-        </svg>
-        전화 걸기
-      </a>
-      <button class="close" type="button">닫기</button>
-    </div>
-  </div>
-
-  <div class="popup" id="pop-map" role="dialog" aria-modal="true" aria-label="오시는 길" hidden>
-    <p class="place-name">통영시민문화회관 제1전시실</p>
+    <section aria-labelledby="m-h">
+      <h2 id="m-h">오시는 길</h2>
+      <p class="place-name">통영시민문화회관 제1전시실</p>
     <div class="address">
       <p id="addr">경남 통영시 남망공원길 29</p>
       <button class="line-btn" id="copy-addr" type="button">주소 복사</button>
     </div>
     <p class="park">회관 주차장을 이용하실 수 있습니다.<small>유료 · 가까운 공영주차장(걸어서 3분)도 있습니다</small></p>
-    <div class="popup-actions">
     <div class="map-links">
       <a href="https://place.map.kakao.com/8621139" target="_blank" rel="noopener">
         <svg viewBox="0 0 28 28" aria-hidden="true">
@@ -407,11 +276,21 @@
         네이버 지도
       </a>
     </div>
-      <button class="close" type="button">닫기</button>
+    </section>
+
+    <section aria-labelledby="n-h">
+      <h2 id="n-h">안내 말씀</h2>
+      <p class="notice">축하의 마음만 감사히 받겠습니다.<br>화환과 선물은 정중히 사양합니다.</p>
+    </section>
+
+    <div class="closing-block">
+      <p class="closing">귀한 걸음 하시어<br>자리를 빛내 주시면<br>더없는 기쁨이겠습니다.</p>
+      <p class="from">김덕권 드림</p>
     </div>
   </div>
+</main>
 
-</div>
+
 
 <script>
   (function () {
@@ -502,40 +381,10 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(render, 150); });
 
-    // 팝업 열고 닫기
-    var scrim = document.getElementById('scrim');
-    var current = null, opener = null;
-    function open(id, btn) {
-      close();
-      current = document.getElementById(id);
-      opener = btn;
-      scrim.hidden = false;
-      current.hidden = false;
-      current.querySelector('.close').focus();
-    }
-    function close() {
-      if (!current) return;
-      current.hidden = true;
-      scrim.hidden = true;
-      current = null;
-      if (opener) opener.focus();
-    }
-    document.querySelectorAll('[data-open]').forEach(function (b) {
-      b.addEventListener('click', function () { open(b.getAttribute('data-open'), b); });
-    });
-    document.querySelectorAll('.popup .close').forEach(function (b) { b.addEventListener('click', close); });
-    scrim.addEventListener('click', function (e) { if (e.target === scrim) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-
     var cue = document.querySelector('.scroll-cue');
     function cueCheck() { cue.classList.toggle('gone', window.scrollY > 30); }
     window.addEventListener('scroll', cueCheck, { passive: true });
     cueCheck();
-
-    document.getElementById('to-top').addEventListener('click', function () {
-      var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
-    });
 
     // 복사
     function copy(text, onOk, onFail) {
