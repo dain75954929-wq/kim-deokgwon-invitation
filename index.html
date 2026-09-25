@@ -19,12 +19,12 @@
   /* 밝은 초대장으로 고정: 맑은 흰 바탕, 통영 바다빛 남색 글자, 유화 붓질로 그린 하늘과 바다 */
   :root {
     --bg: #FFFFFF;
-    --bg-soft: #F4F8F9;
+    --bg-soft: #EEF5FA;
     --ink: #22303C;
     --muted: #66737E;
-    --navy: #2D4A5F;
-    --sea: #2F6385;
-    --sea-light: #8EB8CF;
+    --navy: #16466E;
+    --sea: #1167A8;
+    --sea-light: #5FB2E6;
     --line: #E2E9EC;
     --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     --bar-h: 68px;
@@ -146,11 +146,11 @@
     max-width: 340px;
     box-sizing: border-box;
     align-self: center;
-    padding: 30px 22px 34px;
+    padding: 22px 20px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 26px;
+    gap: 14px;
   }
   /* 항목 제목(초대의 말·전시 일정·안내 말씀, 팝업 제목): 바다색 굵은 글자 */
   h2, .popup h3 {
@@ -170,7 +170,7 @@
     line-height: 1.7;
   }
   .greeting { font-size: 17px; line-height: 2; }
-  .greeting p + p { margin-top: 1.2em; }
+  .greeting p + p { margin-top: .9em; }
   .signature { font-size: 18px; font-weight: 500; }
   .signature span { color: var(--muted); font-size: 14px; font-weight: 400; margin-right: 8px; }
   .notice { font-size: 17px; line-height: 1.9; }
@@ -382,6 +382,7 @@
       <button class="line-btn" id="copy-addr" type="button">주소 복사</button>
     </div>
     <p class="park">회관 주차장을 이용하실 수 있습니다.<small>유료 · 가까운 공영주차장(걸어서 3분)도 있습니다</small></p>
+    <div class="popup-actions">
     <div class="map-links">
       <a href="https://place.map.kakao.com/8621139" target="_blank" rel="noopener">
         <svg viewBox="0 0 28 28" aria-hidden="true">
@@ -399,7 +400,8 @@
         네이버 지도
       </a>
     </div>
-    <button class="close" type="button">닫기</button>
+      <button class="close" type="button">닫기</button>
+    </div>
   </div>
 
 </div>
@@ -442,9 +444,9 @@
     function paintSky(canvas) {
       var c = setup(canvas); if (!c) return;
       var r = rng(7), ctx = c.ctx, w = c.w, h = c.h;
-      [[-.06, .18, .4, .04, 30, '#CFE1EC'], [.06, .5, .24, -.05, 22, '#DDEBF1'],
-       [.7, .12, .38, -.04, 28, '#CFE1EC'], [.8, .44, .24, .06, 20, '#F3E3B0'],
-       [.62, .3, .16, .02, 14, '#DDEBF1']].forEach(function (s) {
+      [[-.06, .18, .4, .04, 30, '#8FCDF2'], [.06, .5, .24, -.05, 22, '#BFE3F8'],
+       [.7, .12, .38, -.04, 28, '#8FCDF2'], [.8, .44, .24, .06, 20, '#FFD04D'],
+       [.62, .3, .16, .02, 14, '#BFE3F8']].forEach(function (s) {
         stroke(ctx, r, s[0] * w, s[1] * h, s[2] * w, s[3], s[4], s[5], .9);
       });
     }
@@ -453,7 +455,7 @@
       var r = rng(23), ctx = c.ctx, w = c.w, h = c.h;
       var horizon = h * .34;
       // 섬: 수평선 위에 낮게 엎드린 두 개의 섬
-      [[.2, .26, .2, '#8FA89A'], [.74, .34, .14, '#A3B8AC']].forEach(function (isl) {
+      [[.2, .26, .2, '#3E8A55'], [.74, .34, .14, '#5BA567']].forEach(function (isl) {
         var cx = isl[0] * w, iw = isl[2] * w * 1.6, ih = isl[1] * h * .9;
         ctx.save();
         ctx.beginPath();
@@ -467,7 +469,7 @@
         ctx.restore();
       });
       // 바다: 수평선에서 아래로 갈수록 짙어지는 가로 붓질
-      var bands = ['#D4E6EE', '#B7D3E1', '#8EB8CF', '#6B9EBD', '#4F86A6', '#3C6F92', '#2F6385'];
+      var bands = ['#A9DDF7', '#6CC0EC', '#37A0DD', '#1C84C6', '#1167A8', '#0C528C', '#083F70'];
       var base = ctx.createLinearGradient(0, horizon, 0, h);
       bands.forEach(function (col, i) { base.addColorStop(i / (bands.length - 1), col); });
       ctx.fillStyle = base;
