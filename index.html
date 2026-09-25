@@ -93,18 +93,34 @@
   .fact p { font-size: 19px; line-height: 1.55; font-variant-numeric: tabular-nums; }
   .fact p small { display: block; font-size: 17px; color: var(--muted); }
 
-  /* ── 상세 ── */
-  .details { padding: 24px 24px 8px; display: flex; flex-direction: column; gap: 80px; }
-  section { display: flex; flex-direction: column; align-items: center; gap: 24px; padding-top: 40px; }
-  h2 {
+  /* ── 상세: 옅은 바탕 위에 항목마다 테두리 상자 ── */
+  .details {
+    background: var(--bg-soft);
+    padding: 36px 18px calc(36px + var(--bar-h) + env(safe-area-inset-bottom, 0px));
+    margin-bottom: calc(-1 * (var(--bar-h) + env(safe-area-inset-bottom, 0px)));
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  section {
+    background: #FFFFFF;
+    border: 1px solid #D3E0E7;
+    padding: 0 20px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+  }
+  h2, .popup h3 {
     margin: 0;
     background: var(--sea);
     color: #FFFFFF;
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 500;
     letter-spacing: .08em;
     padding: 8px 26px;
   }
+  section h2 { margin-top: -1px; }
   .slot {
     align-self: stretch;
     border: 1px dashed #C9D3D8;
@@ -114,24 +130,15 @@
     padding: 20px;
     line-height: 1.7;
   }
+  .greeting { font-size: 17px; line-height: 2; }
+  .greeting p + p { margin-top: 1.2em; }
   .signature { font-size: 18px; font-weight: 500; }
   .signature span { color: var(--muted); font-size: 14px; font-weight: 400; margin-right: 8px; }
   .schedule { display: flex; flex-direction: column; align-items: center; gap: 22px; }
-  .closing-block { display: flex; flex-direction: column; align-items: center; gap: 20px; padding-top: 24px; }
-  .closing { font-size: 19px; line-height: 2; }
-  .from { font-size: 16px; color: var(--muted); letter-spacing: .1em; }
-  .notice-block {
-    margin: 72px 0 0;
-    background: var(--bg-soft);
-    padding: 40px 24px calc(48px + var(--bar-h) + env(safe-area-inset-bottom, 0px));
-    margin-bottom: calc(-1 * (var(--bar-h) + env(safe-area-inset-bottom, 0px)));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-  }
-  .notice-block h2 { background: var(--muted); font-size: 16px; padding: 5px 18px; }
-  .notice { font-size: 16px; line-height: 1.9; color: var(--ink); }
+  .notice { font-size: 17px; line-height: 1.9; }
+  .divider { width: 28px; height: 1px; background: #C9D3D8; }
+  .closing { font-size: 18px; line-height: 2; color: var(--muted); }
+  .from { font-size: 17px; font-weight: 500; letter-spacing: .1em; }
 
   /* ── 하단 4분할 메뉴 ── */
   .tabbar {
@@ -193,7 +200,7 @@
     .popup:not([hidden]) { animation: pop .2s ease-out; }
     @keyframes pop { from { transform: scale(.96); opacity: .6; } to { transform: none; opacity: 1; } }
   }
-  .popup h3 { margin: 0; font-size: 20px; font-weight: 700; }
+  .popup h3 { align-self: center; }
   .popup .slot { font-size: 15px; }
   .close {
     border: 0;
@@ -266,12 +273,12 @@
   <header class="hero">
     <canvas class="paint top" id="paint-top" aria-hidden="true"></canvas>
     <div class="title-block">
-      <h1>제2회 김덕권 개인전에<br>초대합니다</h1>
       <p class="theme">
         <svg viewBox="0 0 26 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 5c3-4 6-4 8 0s5 4 8 0 5-4 8 0"/></svg>
         통영을 담다
         <svg viewBox="0 0 26 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 5c3-4 6-4 8 0s5 4 8 0 5-4 8 0"/></svg>
       </p>
+      <h1>제2회 김덕권 개인전에<br>초대합니다</h1>
     </div>
     <div class="facts">
       <div class="fact"><span class="pill">일시</span><p>2026년 11월 21일(토) ~ 29일(일)<small>오전 10시 ~ 오후 5시</small></p></div>
@@ -283,7 +290,11 @@
   <div class="details">
     <section aria-labelledby="g-h">
       <h2 id="g-h">초대의 말</h2>
-      <div class="slot">인사말이 들어갈 자리입니다.<br>작가의 글이나 초대 문구가 정해지면 넣습니다.</div>
+      <div class="greeting">
+        <p>통영의 바다와 골목,<br>그 위로 내려앉는 빛을<br>오랫동안 캔버스에 옮겨 왔습니다.</p>
+        <p>첫 개인전 이후 그려 온 작품들을<br>'통영을 담다'라는 이름으로 모아<br>두 번째 개인전을 엽니다.</p>
+        <p>늘 보던 풍경이 조금 새롭게 보이는<br>쉼표 같은 시간이 되기를 바랍니다.</p>
+      </div>
       <p class="signature"><span>작가</span>김덕권</p>
     </section>
 
@@ -296,16 +307,14 @@
       </div>
     </section>
 
-    <div class="closing-block">
+    <section aria-labelledby="n-h">
+      <h2 id="n-h">안내 말씀</h2>
+      <p class="notice">축하의 마음만 감사히 받겠습니다.<br>화환과 선물은 정중히 사양합니다.</p>
+      <span class="divider" aria-hidden="true"></span>
       <p class="closing">귀한 걸음 하시어<br>자리를 빛내 주시면<br>더없는 기쁨이겠습니다.</p>
       <p class="from">김덕권 드림</p>
-    </div>
+    </section>
   </div>
-
-  <section class="notice-block" aria-labelledby="n-h">
-    <h2 id="n-h">안내 말씀</h2>
-    <p class="notice">축하의 마음만 감사히 받겠습니다.<br>화환과 선물은 정중히 사양합니다.</p>
-  </section>
 </main>
 
 <nav class="tabbar" aria-label="바로가기">
