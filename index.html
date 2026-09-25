@@ -67,6 +67,23 @@
   .paint { position: absolute; left: 0; width: 100%; pointer-events: none; }
   .paint.top { top: 0; height: 120px; }
   .paint.bottom { bottom: 0; height: 180px; }
+  .scroll-cue {
+    position: absolute;
+    left: 0; right: 0; bottom: 14px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-shadow: 0 1px 4px rgba(20,40,60,.4);
+  }
+  .scroll-cue svg { width: 20px; height: 20px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-cue svg { animation: nudge 1.8s ease-in-out infinite; }
+    @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+  }
   .title-block { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
   h1 { font-weight: 700; font-size: clamp(30px, 9vw, 40px); line-height: 1.35; color: #1B2833; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
   .theme {
@@ -88,6 +105,7 @@
     row-gap: 16px;
     text-align: left;
   }
+  .hero .facts { margin-top: 26px; }
   .fact { display: contents; }
   .fact .pill { justify-self: stretch; text-align: center; align-self: start; margin-top: 2px; }
   .pill {
@@ -148,25 +166,24 @@
   .closing { font-size: 18px; line-height: 2; color: var(--ink); }
   .from { font-size: 17px; font-weight: 500; letter-spacing: .1em; }
 
-  /* ── 하단 4분할 메뉴 ── */
+  /* ── 하단 3분할 메뉴 ── */
   .tabbar {
     position: fixed;
     left: 0; right: 0; bottom: 0;
     z-index: 10;
     max-width: 480px;
     margin-inline: auto;
-    background: rgba(255,255,255,.96);
-    box-shadow: 0 -6px 20px -12px rgba(34,48,60,.35);
+    background: var(--sea);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .tabbar button {
     height: var(--bar-h);
     border: 0;
     background: transparent;
-    color: var(--ink);
-    font-size: 14px;
+    color: #FFFFFF;
+    font-size: 15px;
     font-weight: 500;
     display: flex;
     flex-direction: column;
@@ -176,8 +193,9 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .tabbar button:active { color: var(--navy); background: var(--bg-soft); }
-  .tabbar svg { width: 24px; height: 24px; color: var(--navy); }
+  .tabbar button:active { background: rgba(255,255,255,.14); }
+  .tabbar svg { width: 24px; height: 24px; color: #FFFFFF; }
+  .tabbar :focus-visible { outline-color: #FFFFFF; outline-offset: -4px; }
 
   /* ── 가운데 팝업 ── */
   .scrim {
@@ -223,7 +241,8 @@
   .place { display: flex; flex-direction: column; gap: 2px; }
   .place-name { font-size: 21px; font-weight: 700; line-height: 1.4; }
   .place-room { color: var(--muted); font-size: 17px; }
-  .address { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 17px; }
+  .address { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 10px; row-gap: 6px; font-size: 17px; }
+  .address .line-btn { padding: 4px 12px; font-size: 13px; white-space: nowrap; }
   .line-btn {
     color: var(--navy);
     background: transparent;
@@ -247,19 +266,6 @@
   .map-links svg { width: 26px; height: 26px; flex: none; }
   .park { font-size: 16px; color: var(--ink); }
   .park small { display: block; font-size: 14px; color: var(--muted); }
-  .share-url {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    font: inherit;
-    font-size: 14px;
-    color: var(--ink);
-    background: var(--bg-soft);
-    border: 0;
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-  }
   .solid-btn {
     border: 0;
     border-radius: 10px;
@@ -294,6 +300,10 @@
       <div class="fact"><span class="pill">장소</span><p>통영시민문화회관<small>제1전시실</small></p></div>
     </div>
     <canvas class="paint bottom" id="paint-bottom" aria-hidden="true"></canvas>
+    <p class="scroll-cue" aria-hidden="true">
+      아래로 내려 보세요
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </p>
   </header>
 
   <div class="details">
@@ -336,10 +346,6 @@
   <button type="button" data-open="pop-map">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
     오시는 길
-  </button>
-  <button type="button" data-open="pop-share">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>
-    공유
   </button>
   <button type="button" id="to-top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
@@ -389,16 +395,6 @@
     <button class="close" type="button">닫기</button>
   </div>
 
-  <div class="popup" id="pop-share" role="dialog" aria-modal="true" aria-labelledby="share-h" hidden>
-    <h3 id="share-h">공유</h3>
-    <label for="share-url" style="font-size:15px;color:var(--muted)">초대장 링크</label>
-    <input class="share-url" id="share-url" type="text" readonly value="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
-    <p class="hint" id="share-hint" aria-live="polite"></p>
-    <div class="popup-actions">
-      <button class="solid-btn" id="copy-link" type="button">링크 복사</button>
-      <button class="close" type="button">닫기</button>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -529,7 +525,7 @@
       function show(msg) { addrBtn.textContent = msg; setTimeout(function () { addrBtn.textContent = '주소 복사'; }, 2000); }
       copy(document.getElementById('addr').textContent,
         function () { show('복사되었습니다'); },
-        function () { show('주소를 길게 눌러 복사해 주세요'); });
+        function () { show('길게 눌러 복사'); });
     });
     var phoneBtn = document.getElementById('copy-phone');
     phoneBtn.addEventListener('click', function () {
@@ -537,14 +533,6 @@
       copy(document.getElementById('phone').textContent,
         function () { show('복사되었습니다'); },
         function () { show('번호를 길게 눌러 복사해 주세요'); });
-    });
-    var urlInput = document.getElementById('share-url');
-    if (/github\.io$/.test(location.hostname)) urlInput.value = location.origin + location.pathname;
-    var hint = document.getElementById('share-hint');
-    document.getElementById('copy-link').addEventListener('click', function () {
-      copy(urlInput.value,
-        function () { hint.textContent = '복사되었습니다. 카카오톡이나 문자에 붙여 넣어 보내 주세요.'; },
-        function () { urlInput.select(); hint.textContent = '위 링크를 길게 눌러 복사해 주세요.'; });
     });
   })();
 </script>
