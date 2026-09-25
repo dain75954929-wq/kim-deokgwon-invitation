@@ -115,7 +115,8 @@
   }
   .hero .facts { margin-top: 64px; }
   .fact { display: contents; }
-  .fact .pill { justify-self: stretch; text-align: center; align-self: start; margin-top: 2px; }
+  /* 표시 높이를 오른쪽 첫 줄 높이(17px × 1.6)와 똑같이 맞춰 가운데가 일치하게 */
+  .fact .pill { justify-self: stretch; text-align: center; align-self: start; line-height: calc(17px * 1.6); padding-block: 0; }
   .pill {
     display: inline-block;
     background: var(--navy);
