@@ -54,9 +54,11 @@
   /* ── 첫 화면 ── */
   .hero {
     position: relative;
-    min-height: calc(100svh - var(--bar-h));
+    /* 카카오톡 등 앱 안 브라우저의 위아래 막대를 뺀, 지금 보이는 높이에 맞춤 */
+    min-height: calc(100vh - var(--bar-h));
+    min-height: calc(100dvh - var(--bar-h) - env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
-    padding: 110px 24px 190px;
+    padding: 84px 24px 170px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,11 +67,16 @@
     overflow: hidden;
   }
   .paint { position: absolute; left: 0; width: 100%; pointer-events: none; }
-  .paint.top { top: 0; height: 120px; }
-  .paint.bottom { bottom: 0; height: 180px; }
+  .paint.top { top: 0; height: 110px; }
+  .paint.bottom { bottom: 0; height: 160px; }
+  /* 스크롤 안내: 화면 맨 아래(하단 메뉴 바로 위)에 붙여 두고, 내리기 시작하면 사라짐 */
   .scroll-cue {
-    position: absolute;
-    left: 0; right: 0; bottom: 14px;
+    position: fixed;
+    z-index: 5;
+    left: 0; right: 0;
+    bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px) + 10px);
+    margin: 0;
+    transition: opacity .3s;
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 500;
@@ -80,6 +87,7 @@
     text-shadow: 0 1px 4px rgba(20,40,60,.4);
   }
   .scroll-cue svg { width: 20px; height: 20px; }
+  .scroll-cue.gone { opacity: 0; pointer-events: none; }
   @media (prefers-reduced-motion: no-preference) {
     .scroll-cue svg { animation: nudge 1.8s ease-in-out infinite; }
     @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
@@ -107,15 +115,12 @@
   }
   .hero .facts { margin-top: 26px; }
   .fact { display: contents; }
-  .fact .pill { justify-self: stretch; text-align: center; align-self: start; margin-top: 2px; }
+  .fact .pill { align-self: start; }
   .pill {
-    display: inline-block;
-    background: var(--navy);
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 2px 14px;
-    border-radius: 999px;
+    color: var(--sea);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.6;
   }
   .fact p { font-size: 17px; line-height: 1.6; font-variant-numeric: tabular-nums; }
   .fact p small { display: block; font-size: 15px; color: var(--muted); }
@@ -132,6 +137,8 @@
   section {
     background: #FFFFFF;
     border: 1px solid #D3E0E7;
+    border-radius: 14px;
+    overflow: hidden;
     padding: 0 20px 36px;
     display: flex;
     flex-direction: column;
@@ -147,7 +154,7 @@
     letter-spacing: .08em;
     padding: 8px 26px;
   }
-  section h2 { margin-top: -1px; }
+  section h2 { margin-top: -1px; border-radius: 0 0 10px 10px; }
   .slot {
     align-self: stretch;
     border: 1px dashed #C9D3D8;
@@ -239,8 +246,7 @@
     cursor: pointer;
   }
   .place { display: flex; flex-direction: column; gap: 2px; }
-  .place-name { font-size: 21px; font-weight: 700; line-height: 1.4; }
-  .place-room { color: var(--muted); font-size: 17px; }
+  .place-name { font-size: 20px; font-weight: 700; line-height: 1.4; }
   .address { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 10px; row-gap: 6px; font-size: 17px; }
   .address .line-btn { padding: 4px 12px; font-size: 13px; white-space: nowrap; }
   .line-btn {
@@ -359,17 +365,13 @@
     <p class="phone-num" id="phone">010-4087-9490</p>
     <div class="popup-actions">
       <a class="solid-btn" href="tel:01040879490">전화 걸기</a>
-      <button class="line-btn wide" id="copy-phone" type="button">번호 복사</button>
       <button class="close" type="button">닫기</button>
     </div>
   </div>
 
   <div class="popup" id="pop-map" role="dialog" aria-modal="true" aria-labelledby="map-h" hidden>
     <h3 id="map-h">오시는 길</h3>
-    <div class="place">
-      <p class="place-name">통영시민문화회관</p>
-      <p class="place-room">제1전시실</p>
-    </div>
+    <p class="place-name">통영시민문화회관 제1전시실</p>
     <div class="address">
       <p id="addr">경남 통영시 남망공원길 29</p>
       <button class="line-btn" id="copy-addr" type="button">주소 복사</button>
@@ -511,6 +513,11 @@
     scrim.addEventListener('click', function (e) { if (e.target === scrim) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
 
+    var cue = document.querySelector('.scroll-cue');
+    function cueCheck() { cue.classList.toggle('gone', window.scrollY > 30); }
+    window.addEventListener('scroll', cueCheck, { passive: true });
+    cueCheck();
+
     document.getElementById('to-top').addEventListener('click', function () {
       var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
@@ -526,13 +533,6 @@
       copy(document.getElementById('addr').textContent,
         function () { show('복사되었습니다'); },
         function () { show('길게 눌러 복사'); });
-    });
-    var phoneBtn = document.getElementById('copy-phone');
-    phoneBtn.addEventListener('click', function () {
-      function show(msg) { phoneBtn.textContent = msg; setTimeout(function () { phoneBtn.textContent = '번호 복사'; }, 2000); }
-      copy(document.getElementById('phone').textContent,
-        function () { show('복사되었습니다'); },
-        function () { show('번호를 길게 눌러 복사해 주세요'); });
     });
   })();
 </script>
