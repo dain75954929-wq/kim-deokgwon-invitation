@@ -7,11 +7,11 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-2.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-3.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
-<title>제2회 김덕권 개인전</title>
+<title>갈매기의 꿈2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
@@ -93,7 +93,8 @@
     @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
   }
   .title-block { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
-  h1 { font-weight: 700; font-size: clamp(30px, 9vw, 40px); line-height: 1.35; color: #1B2833; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  h1 { font-weight: 700; font-size: clamp(42px, 13vw, 56px); line-height: 1.35; color: #1B2833; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .edition { font-size: 17px; font-weight: 500; color: var(--muted); letter-spacing: .06em; }
   .theme {
     display: flex;
     align-items: center;
@@ -215,10 +216,9 @@
   <header class="hero">
     <canvas class="paint top" id="paint-top" aria-hidden="true"></canvas>
     <div class="title-block">
-      <p class="theme">
-        통영을 담다
-      </p>
-      <h1>제2회 김덕권 개인전에<br>초대합니다</h1>
+      <p class="edition">제2회 김덕권 개인전</p>
+      <h1>갈매기의 꿈2</h1>
+      <p class="theme">통영을 담다</p>
     </div>
     <div class="facts">
       <div class="fact"><span class="pill">일시</span><p>11월 21일(토) ~ 29일(일)<small>오전 10시 ~ 오후 5시</small></p></div>
@@ -235,11 +235,11 @@
     <section aria-labelledby="g-h">
       <h2 id="g-h">초대의 말</h2>
       <div class="greeting">
-        <p>통영의 바다와 골목,<br>그 위로 내려앉는 빛을<br>오랫동안 캔버스에 옮겨 왔습니다.</p>
-        <p>첫 개인전 이후 그려 온 작품들을<br>'통영을 담다'라는 이름으로 모아<br>두 번째 개인전을 엽니다.</p>
-        <p>늘 보던 풍경이 조금 새롭게 보이는<br>쉼표 같은 시간이 되기를 바랍니다.</p>
+        <p>드높은 하늘 아래<br>넘실대는 푸른 물결,<br>그리고 수많은 섬들이 손짓하며<br>갈매기 떼 한없이 날아들고<br>어부들 노랫소리<br>끊임없이 이어지는 곳...</p>
+        <p>내 고향의 소박한 꿈을<br>늦게나마 이제 와서 화폭에 담아<br>모든 분들과 공유하고자 합니다.</p>
+        <p>바쁘신 중이라도 꼭 한 번 들러 주시어<br>많은 지도 바랍니다.</p>
       </div>
-      <p class="signature"><span>작가</span>김덕권</p>
+      <p class="signature"><span>2026년 11월</span>김덕권</p>
     </section>
 
     <section aria-labelledby="d-h">
@@ -334,6 +334,19 @@
        [.7, .12, .38, -.04, 28, '#AED6EE'], [.8, .44, .24, .06, 20, '#F4D98A'],
        [.62, .3, .16, .02, 14, '#D0E8F5']].forEach(function (s) {
         stroke(ctx, r, s[0] * w, s[1] * h, s[2] * w, s[3], s[4], s[5], .9);
+      });
+      // 갈매기: 날개 두 번 휘어 그은 붓선
+      [[.4, .3, 15], [.5, .2, 11], [.56, .42, 9]].forEach(function (g) {
+        var x = g[0] * w, y = g[1] * h, sz = g[2];
+        ctx.beginPath();
+        ctx.moveTo(x - sz, y + sz * .15);
+        ctx.quadraticCurveTo(x - sz * .5, y - sz * .55, x, y + sz * .2);
+        ctx.quadraticCurveTo(x + sz * .5, y - sz * .55, x + sz, y + sz * .15);
+        ctx.strokeStyle = '#3E5C74';
+        ctx.globalAlpha = .85;
+        ctx.lineWidth = 2.2;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
       });
     }
     function paintSea(canvas) {
