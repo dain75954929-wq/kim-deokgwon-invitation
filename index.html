@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-11.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-12.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
@@ -55,24 +55,37 @@
   .hero {
     position: relative;
     /* 카카오톡 등 앱 안 브라우저의 위아래 막대를 뺀, 지금 보이는 높이에 맞춤 */
-    min-height: calc(100vh - var(--bar-h));
-    min-height: calc(100dvh - var(--bar-h) - env(safe-area-inset-bottom, 0px));
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: var(--hero-h, 100svh);
     box-sizing: border-box;
-    padding: 40px 20px 64px;
+    padding: 40px 20px 128px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
     overflow: hidden;
-    background: #6E9BC9 url("hero.jpg") center top / cover no-repeat;
+    background: #6E9BC9;
   }
   /* 글자가 잘 읽히도록 위쪽 하늘에만 아주 옅은 그늘 */
+  .hero-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 116%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center top;
+    pointer-events: none;
+  }
+  .hero > .title-block, .hero > .facts { z-index: 2; }
   .hero::before {
     content: "";
     position: absolute;
     inset: 0 0 auto 0;
     height: 42%;
+    z-index: 1;
     background: linear-gradient(180deg, rgba(20,45,85,.38), rgba(20,45,85,0));
     pointer-events: none;
   }
@@ -81,7 +94,7 @@
     position: absolute;
     left: 0; right: 0;
     bottom: 10px;
-    z-index: 1;
+    z-index: 2;
     margin: 0;
     transition: opacity .3s;
     color: #FFFFFF;
@@ -126,12 +139,13 @@
     content: "";
     position: absolute;
     inset: auto 0 0 0;
-    height: 45%;
-    background: linear-gradient(0deg, rgba(8,24,52,.72) 0%, rgba(8,24,52,.45) 55%, rgba(8,24,52,0) 100%);
+    height: 62%;
+    z-index: 1;
+    background: linear-gradient(0deg, rgba(8,24,52,.35) 0%, rgba(8,24,52,.55) 45%, rgba(8,24,52,0) 100%);
     pointer-events: none;
   }
   .hero .facts {
-    z-index: 1;
+    z-index: 2;
     color: #FFFFFF;
     text-shadow: 0 1px 3px rgba(5,18,40,.7), 0 2px 12px rgba(5,18,40,.5);
   }
@@ -236,6 +250,7 @@
 
 <main class="card">
   <header class="hero">
+    <img class="hero-bg" src="hero-2.jpg" alt="">
     <div class="title-block">
       <p class="edition">제2회 김덕권 개인전</p>
       <h1>갈매기의 꿈2</h1>
@@ -314,6 +329,15 @@
 
 <script>
   (function () {
+
+    var lastW = 0;
+    function lockHero() {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
+      document.documentElement.style.setProperty('--hero-h', window.innerHeight + 'px');
+    }
+    lockHero();
+    window.addEventListener('resize', lockHero);
 
     var cue = document.querySelector('.scroll-cue');
     function cueCheck() { cue.classList.toggle('gone', window.scrollY > 30); }
