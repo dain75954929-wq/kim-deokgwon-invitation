@@ -7,14 +7,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-13.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-14.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
 <title>갈매기의 꿈2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
 <style>
   /* 밝은 초대장으로 고정: 맑은 흰 바탕, 통영 바다빛 남색 글자, 유화 붓질로 그린 하늘과 바다 */
   :root {
@@ -26,7 +26,7 @@
     --sea: #1167A8;
     --sea-light: #5FB2E6;
     --line: #E2E9EC;
-    --sans: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --sans: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", serif;
     --bar-h: 0px;
   }
   html, body { background: var(--bg-soft); }
@@ -55,16 +55,12 @@
   .hero {
     position: relative;
     /* 카카오톡 등 앱 안 브라우저의 위아래 막대를 뺀, 지금 보이는 높이에 맞춤 */
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: var(--hero-h, 100svh);
+    aspect-ratio: 572 / 842;
     box-sizing: border-box;
-    padding: 40px 20px 128px;
+    padding: 7% 20px 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    gap: 24px;
     overflow: hidden;
     background: #6E9BC9;
   }
@@ -73,10 +69,8 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%;
-    height: 116%;
-    max-width: none;
+    height: 100%;
     object-fit: cover;
-    object-position: center top;
     pointer-events: none;
   }
   .hero > .title-block, .hero > .facts { z-index: 2; }
@@ -138,13 +132,18 @@
   .hero::after {
     content: "";
     position: absolute;
-    inset: auto 0 0 0;
-    height: 62%;
+    inset: 0;
     z-index: 1;
-    background: linear-gradient(0deg, rgba(8,24,52,.35) 0%, rgba(8,24,52,.55) 45%, rgba(8,24,52,0) 100%);
+    background: linear-gradient(180deg, rgba(8,24,52,0) 36%, rgba(8,24,52,.5) 46%, rgba(8,24,52,.45) 64%, rgba(8,24,52,0) 74%, rgba(8,24,52,0) 90%, rgba(8,24,52,.35) 100%);
     pointer-events: none;
   }
   .hero .facts {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 32px);
     z-index: 2;
     color: #FFFFFF;
     text-shadow: 0 1px 3px rgba(5,18,40,.7), 0 2px 12px rgba(5,18,40,.5);
@@ -217,6 +216,28 @@
   .from { font-size: 17px; font-weight: 500; letter-spacing: .1em; }
 
   /* 오시는 길 */
+  .map-img {
+    position: relative;
+    display: block;
+    align-self: stretch;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .map-img img { display: block; width: 100%; height: auto; }
+  .map-pin {
+    position: absolute;
+    left: 55%;
+    top: 4%;
+    background: var(--sea);
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.25);
+    white-space: nowrap;
+  }
   .place-name { font-size: 20px; font-weight: 700; line-height: 1.4; }
   .address { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; column-gap: 10px; row-gap: 6px; font-size: 17px; }
   .address .line-btn { padding: 4px 12px; font-size: 13px; white-space: nowrap; }
@@ -289,6 +310,10 @@
     <section aria-labelledby="m-h">
       <h2 id="m-h">오시는 길</h2>
       <p class="place-name">통영시민문화회관 제1전시실</p>
+      <a class="map-img" href="https://place.map.kakao.com/8621139" target="_blank" rel="noopener" aria-label="카카오맵에서 통영시민문화회관 보기">
+        <img src="map.jpg" alt="통영시민문화회관 위치 지도" width="970" height="644">
+        <span class="map-pin">통영시민문화회관</span>
+      </a>
     <div class="address">
       <p id="addr">경남 통영시 남망공원길 29</p>
       <button class="line-btn" id="copy-addr" type="button">주소 복사</button>
@@ -329,15 +354,6 @@
 
 <script>
   (function () {
-
-    var lastW = 0;
-    function lockHero() {
-      if (window.innerWidth === lastW) return;
-      lastW = window.innerWidth;
-      document.documentElement.style.setProperty('--hero-h', window.innerHeight + 'px');
-    }
-    lockHero();
-    window.addEventListener('resize', lockHero);
 
     var cue = document.querySelector('.scroll-cue');
     function cueCheck() { cue.classList.toggle('gone', window.scrollY > 30); }
