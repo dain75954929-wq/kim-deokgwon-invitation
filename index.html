@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-6.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-7.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
@@ -67,8 +67,8 @@
     overflow: hidden;
   }
   .paint { position: absolute; left: 0; width: 100%; pointer-events: none; }
-  .paint.top { top: 0; height: 110px; }
-  .paint.bottom { bottom: 0; height: 160px; }
+  .paint.top { top: 0; height: 90px; }
+  .paint.bottom { bottom: 0; height: 180px; }
   /* 스크롤 안내: 화면 맨 아래(하단 메뉴 바로 위)에 붙여 두고, 내리기 시작하면 사라짐 */
   .scroll-cue {
     position: fixed;
@@ -379,16 +379,40 @@
     function paintSky(canvas) {
       var c = setup(canvas); if (!c) return;
       var r = rng(7), ctx = c.ctx, w = c.w, h = c.h;
-      [[-.06, .18, .4, .04, 30, '#AED6EE'], [.06, .5, .24, -.05, 22, '#D0E8F5'],
-       [.7, .12, .38, -.04, 28, '#AED6EE'], [.8, .44, .24, .06, 20, '#F4D98A'],
-       [.62, .3, .16, .02, 14, '#D0E8F5']].forEach(function (s) {
-        stroke(ctx, r, s[0] * w, s[1] * h, s[2] * w, s[3], s[4], s[5], .9);
+      // 옅은 하늘 붓질
+      [[-.06, .16, .34, .04, 26, '#CFE6F4'], [.7, .1, .36, -.03, 22, '#CFE6F4']].forEach(function (s) {
+        stroke(ctx, r, s[0] * w, s[1] * h, s[2] * w, s[3], s[4], s[5], .7);
       });
-      // 갈매기 세 마리: [x, y, 반쪽 날개 길이(px), 기울기, 날갯짓(-1 내림 ~ 1 올림)]
-      [[.42, .46, 26, -.08, .9], [.55, .26, 18, .1, -.4], [.63, .58, 14, -.05, .6]].forEach(function (g) {
-        gull(ctx, r, g[0] * w, g[1] * h, g[2], g[3], g[4]);
+      // 해: 둥글게 돌려 칠한 노란 물감과 짧은 햇살 붓질
+      var sx = w * .3, sy = h * .5, sr = Math.min(16, w * .04);
+      for (var a = 0; a < Math.PI * 2; a += .35) {
+        stroke(ctx, r, sx + Math.cos(a) * sr * .2, sy + Math.sin(a) * sr * .2, sr * .9, a, sr * .9, '#F2C14E', .8);
+      }
+      for (var b = 0; b < 8; b++) {
+        var ang = b * Math.PI / 4 + .2;
+        stroke(ctx, r, sx + Math.cos(ang) * sr * 1.4, sy + Math.sin(ang) * sr * 1.4, sr * .7, ang, 4, '#F4CF6E', .55);
+      }
+      // 구름: 가늘고 길게 끌린 흰 구름
+      [[.56, .6, .3, -.03, 9, '#E6F1F8'], [.6, .52, .22, -.06, 6, '#FFFFFF'], [.66, .66, .24, .01, 5, '#D6E6F0']].forEach(function (s) {
+        stroke(ctx, r, s[0] * w, s[1] * h, s[2] * w, s[3], s[4], s[5], .95);
       });
       canvasWeave(ctx, w, h);
+    }
+    // 멀리 나는 작은 갈매기: 날개를 꺾어 그은 짧은 붓선 두 번
+    function smallGull(ctx, r, x, y, s) {
+      ctx.lineCap = 'round';
+      [[-1, 0], [1, 0]].forEach(function (d) {
+        for (var i = 0; i < 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(x, y + (r() - .5) * .6);
+          ctx.quadraticCurveTo(x + d[0] * s * .45, y - s * .55, x + d[0] * s, y - s * .1 + (r() - .5) * .8);
+          ctx.strokeStyle = i ? '#4A5866' : '#26323C';
+          ctx.globalAlpha = i ? .45 : .9;
+          ctx.lineWidth = i ? 1 : 1.7;
+          ctx.stroke();
+        }
+      });
+      ctx.globalAlpha = 1;
     }
     // 갈매기 한 마리: 회색 날개, 검은 날개 끝, 흰 몸, 노란 부리를 모두 붓질로
     function gull(ctx, r, x, y, s, tilt, flap) {
@@ -448,20 +472,31 @@
     function paintSea(canvas) {
       var c = setup(canvas); if (!c) return;
       var r = rng(23), ctx = c.ctx, w = c.w, h = c.h;
-      var horizon = h * .34;
-      // 섬: 수평선 위에 낮게 엎드린 두 개의 섬
-      [[.2, .26, .2, '#6A9C78'], [.74, .34, .14, '#86B28E']].forEach(function (isl) {
-        var cx = isl[0] * w, iw = isl[2] * w * 1.6, ih = isl[1] * h * .9;
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(cx - iw / 2, horizon + 2);
-        ctx.bezierCurveTo(cx - iw * .3, horizon - ih, cx + iw * .15, horizon - ih * 1.1, cx + iw / 2, horizon + 2);
-        ctx.closePath();
-        ctx.clip();
-        for (var y = horizon - ih * 1.1; y < horizon + 4; y += 5) {
-          stroke(ctx, r, cx - iw / 2 - 10, y, iw + 20, (r() - .5) * .06, 7, isl[3], .9);
+      var horizon = h * .4;
+      // 바위섬 두 개: 스케치처럼 왼쪽은 크고 각지게, 오른쪽은 작고 둥글게
+      var islands = [
+        [[.1, 0], [.17, .45], [.24, .92], [.3, 1], [.36, .96], [.38, .74], [.42, .66], [.48, .3], [.51, 0]],
+        [[.66, 0], [.7, .42], [.75, .66], [.79, .78], [.82, .62], [.86, .4], [.9, 0]]
+      ];
+      var ih = horizon * .82;
+      islands.forEach(function (pts, n) {
+        var xy = pts.map(function (p) {
+          return [p[0] * w + (r() - .5) * 1.5, horizon + 1 - p[1] * ih * (n ? .62 : 1) + (r() - .5) * 1.5];
+        });
+        function shape() {
+          ctx.beginPath();
+          xy.forEach(function (p, i) { if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); });
+          ctx.closePath();
         }
-        ctx.restore();
+        var box = [pts[0][0] * w, horizon - ih, pts[pts.length - 1][0] * w, horizon + 2];
+        paintIn(ctx, r, shape, box, -.9, 2.6, '#6E8F78', .95, 18);
+        paintIn(ctx, r, shape, box, -1.1, 3.4, '#4C6A57', .55, 12);
+        paintIn(ctx, r, shape, box, -.6, 4.5, '#A7BC9F', .35, 8);
+        roughEdge(ctx, r, shape, '#3E5848', .5, 1.2);
+      });
+      // 섬 사이를 나는 작은 갈매기 세 마리
+      [[.55, -.62, 7], [.6, -.44, 6], [.635, -.3, 5]].forEach(function (g) {
+        smallGull(ctx, r, g[0] * w, horizon + g[1] * horizon, g[2]);
       });
       // 바다: 수평선에서 아래로 갈수록 짙어지는 가로 붓질
       var bands = ['#C4E3F2', '#96CBE6', '#6AB0D6', '#4B95C3', '#3A7DAE', '#2F6897', '#26557E'];
@@ -480,7 +515,20 @@
       // 물비늘
       for (var i = 0; i < 9; i++) {
         stroke(ctx, r, r() * w * .9, horizon + 6 + r() * (h - horizon) * .5, 14 + r() * 26, 0, 3, '#FFFFFF', .9);
-      }      boat(ctx, r, w * .56, horizon + (h - horizon) * .3, Math.min(1.9, w / 245));
+      }
+      // 물결 자국: 짧게 휘어 그은 붓선
+      [[.12, .16], [.36, .14], [.72, .12], [.82, .26], [.18, .42], [.4, .4], [.6, .34], [.8, .5], [.3, .62], [.64, .58], [.14, .76], [.78, .74]].forEach(function (p) {
+        var px = p[0] * w, py = horizon + p[1] * (h - horizon), len = 14 + r() * 12;
+        ctx.beginPath();
+        ctx.moveTo(px, py + 2);
+        ctx.quadraticCurveTo(px + len * .4, py - 3, px + len, py + 1);
+        ctx.strokeStyle = '#EAF5FB';
+        ctx.globalAlpha = .75;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      });
+      boat(ctx, r, w * .7, horizon + (h - horizon) * .4, Math.min(.75, w / 560));
       canvasWeave(ctx, w, h);
     }
     // 고깃배: 선체·조타실·돛대·깃발을 모두 붓질로
