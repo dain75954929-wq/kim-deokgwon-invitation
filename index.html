@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-9.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-10.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
@@ -51,42 +51,46 @@
   button { font: inherit; }
   :focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; }
 
-  /* ── 첫 화면 ── */
+  /* ── 첫 화면: 유화 한 점이 화면 가득 ── */
   .hero {
     position: relative;
     /* 카카오톡 등 앱 안 브라우저의 위아래 막대를 뺀, 지금 보이는 높이에 맞춤 */
     min-height: calc(100vh - var(--bar-h));
     min-height: calc(100dvh - var(--bar-h) - env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
-    padding: 20px 24px 58px;
+    padding: 40px 20px 64px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 18px;
+    gap: 24px;
     overflow: hidden;
+    background: #6E9BC9 url("hero.jpg") center top / cover no-repeat;
   }
-  /* 그림: 화면 폭 가득, 캔버스에 걸린 유화 한 점 */
-  .painting {
-    margin: 0 -24px;
-    align-self: stretch;
-    box-shadow: 0 10px 24px -14px rgba(20,40,70,.45);
+  /* 글자가 잘 읽히도록 위쪽 하늘에만 아주 옅은 그늘 */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 42%;
+    background: linear-gradient(180deg, rgba(20,45,85,.38), rgba(20,45,85,0));
+    pointer-events: none;
   }
-  .painting canvas { display: block; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; }
-  /* 스크롤 안내: 화면 맨 아래(하단 메뉴 바로 위)에 붙여 두고, 내리기 시작하면 사라짐 */
+  /* 스크롤 안내: 첫 화면 맨 아래, 내리기 시작하면 사라짐 */
   .scroll-cue {
     position: absolute;
     left: 0; right: 0;
-    bottom: 8px;
+    bottom: 10px;
     margin: 0;
     transition: opacity .3s;
-    color: var(--muted);
+    color: #FFFFFF;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: .04em;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-shadow: 0 1px 6px rgba(10,30,60,.7);
   }
   .scroll-cue svg { width: 20px; height: 20px; }
   .scroll-cue.gone { opacity: 0; pointer-events: none; }
@@ -94,18 +98,18 @@
     .scroll-cue svg { animation: nudge 1.8s ease-in-out infinite; }
     @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
   }
-  .title-block { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
-  h1 { font-weight: 700; font-size: clamp(36px, 11vw, 50px); line-height: 1.35; color: #1B2833; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
-  .edition { font-size: 17px; font-weight: 500; color: var(--muted); letter-spacing: .06em; }
-  .theme {
+  .title-block {
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    font-size: 21px;
-    font-weight: 500;
-    color: var(--sea);
-    letter-spacing: .12em;
+    gap: 10px;
+    color: #FFFFFF;
+    text-shadow: 0 1px 3px rgba(10,30,60,.55), 0 2px 16px rgba(10,30,60,.45);
   }
+  h1 { font-weight: 700; font-size: clamp(38px, 12vw, 52px); line-height: 1.3; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .edition { font-size: 17px; font-weight: 500; letter-spacing: .06em; }
+  .theme { font-size: 21px; font-weight: 500; letter-spacing: .12em; }
   /* 항목 이름(왼쪽) + 내용(오른쪽) 두 칸 */
   .facts, .schedule {
     position: relative;
@@ -116,7 +120,14 @@
     row-gap: 16px;
     text-align: left;
   }
-  .hero .facts { margin-top: 4px; }
+  .hero .facts {
+    background: rgba(255,255,255,.9);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 24px -12px rgba(10,30,60,.5);
+  }
   .fact { display: contents; }
   /* 표시 높이를 오른쪽 첫 줄 높이(17px × 1.6)와 똑같이 맞춰 가운데가 일치하게 */
   .fact .pill { justify-self: stretch; text-align: center; align-self: start; line-height: calc(17px * 1.6); padding-block: 0; }
@@ -221,9 +232,6 @@
       <h1>갈매기의 꿈2</h1>
       <p class="theme">통영을 담다</p>
     </div>
-    <figure class="painting">
-      <canvas id="painting" role="img" aria-label="통영 바다 유화: 구름 낀 하늘과 햇살, 바위섬 두 개, 갈매기, 물결 위의 작은 배"></canvas>
-    </figure>
     <div class="facts">
       <div class="fact"><span class="pill">일시</span><p>11월 21일(토) ~ 29일(일)<small>오전 10시 ~ 오후 5시</small></p></div>
       <div class="fact"><span class="pill">장소</span><p>통영시민문화회관<small>제1전시실</small></p></div>
@@ -297,391 +305,6 @@
 
 <script>
   (function () {
-    // 유화 붓질: 위는 맑은 하늘, 아래는 섬이 떠 있는 통영 바다
-    function rng(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
-    function setup(canvas) {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      var w = canvas.clientWidth, h = canvas.clientHeight;
-      if (!w || !h) return null;
-      canvas.width = w * dpr; canvas.height = h * dpr;
-      var ctx = canvas.getContext('2d');
-      ctx.scale(dpr, dpr);
-      ctx.lineCap = 'round';
-      return { ctx: ctx, w: w, h: h };
-    }
-    // 붓 한 번: 붓털마다 물감이 조금씩 다르게 묻어 색이 섞이고, 가장자리 털은 짧아 끝이 가늘어진다
-    var rgbCache = {};
-    function toRgb(col) {
-      if (!rgbCache[col]) {
-        var n = parseInt(col.slice(1), 16);
-        rgbCache[col] = [n >> 16 & 255, n >> 8 & 255, n & 255];
-      }
-      return rgbCache[col];
-    }
-    function stroke(ctx, r, x, y, len, ang, width, col, alpha) {
-      var bristles = Math.max(4, Math.min(22, Math.round(width * 1.1)));
-      var rgb = toRgb(col);
-      var ca = Math.cos(ang), sa = Math.sin(ang);
-      for (var i = 0; i < bristles; i++) {
-        var f = i / (bristles - 1) - .5;
-        var off = f * width;
-        var nx = -sa * off, ny = ca * off;
-        var edge = Math.abs(f) * 2;
-        var l = len * (.78 + r() * .22) * (1 - edge * edge * .35);
-        var start = len * edge * .12 * r();
-        var bend = (r() - .5) * Math.min(5, width * .4);
-        var j = (r() - .5) * 30;
-        var cr = Math.round(Math.max(0, Math.min(255, rgb[0] + j + (r() - .5) * 10)));
-        var cg = Math.round(Math.max(0, Math.min(255, rgb[1] + j + (r() - .5) * 10)));
-        var cb = Math.round(Math.max(0, Math.min(255, rgb[2] + j + (r() - .5) * 10)));
-        var x0 = x + nx + ca * start, y0 = y + ny + sa * start;
-        ctx.beginPath();
-        ctx.moveTo(x0, y0);
-        ctx.quadraticCurveTo(
-          x0 + ca * l * .5 - sa * bend, y0 + sa * l * .5 + ca * bend,
-          x0 + ca * l, y0 + sa * l);
-        ctx.strokeStyle = 'rgb(' + cr + ',' + cg + ',' + cb + ')';
-        ctx.globalAlpha = alpha * (.6 + r() * .4);
-        ctx.lineWidth = width / bristles * (1.5 + r() * 1.2);
-        ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-    }
-    // 모양 안을 붓질로 채우기: 윤곽선 대신 붓자국으로 형태를 만든다
-    function paintIn(ctx, r, shape, box, ang, step, col, alpha, len) {
-      var base = ctx.getTransform();
-      ctx.save();
-      shape();
-      ctx.setTransform(base);
-      ctx.clip();
-      var cx = (box[0] + box[2]) / 2, cy = (box[1] + box[3]) / 2;
-      var span = Math.hypot(box[2] - box[0], box[3] - box[1]);
-      len = len || span * .55;
-      for (var t = -span / 2; t <= span / 2; t += step) {
-        for (var u = -span / 2 - len * .3; u < span / 2; u += len * .7) {
-          var px = cx + Math.cos(ang) * u - Math.sin(ang) * t + (r() - .5) * 2;
-          var py = cy + Math.sin(ang) * u + Math.cos(ang) * t + (r() - .5) * 2;
-          stroke(ctx, r, px, py, len * (.8 + r() * .4), ang + (r() - .5) * .12, step * 1.9, col, alpha);
-        }
-      }
-      ctx.restore();
-    }
-    // 붓으로 그은 듯한 가장자리: 같은 길을 조금씩 어긋나게 여러 번, 옅게
-    function roughEdge(ctx, r, shape, col, alpha, width) {
-      var base = ctx.getTransform();
-      for (var i = 0; i < 3; i++) {
-        ctx.save();
-        ctx.translate((r() - .5) * 1.2, (r() - .5) * 1.2);
-        shape();
-        ctx.setTransform(base);
-        ctx.strokeStyle = col;
-        ctx.globalAlpha = alpha * (.5 + r() * .5);
-        ctx.lineWidth = width * (.6 + r() * .6);
-        ctx.stroke();
-        ctx.restore();
-      }
-      ctx.globalAlpha = 1;
-    }
-    // 마무리: 두껍게 올린 물감처럼 붓털 결에 빛(왼쪽 위)과 그림자를 주고, 물감 알갱이 결을 더한다
-    function canvasWeave(ctx, w, h) {
-      var cv = ctx.canvas, W = cv.width, H = cv.height, r = rng(101);
-      var img = ctx.getImageData(0, 0, W, H), d = img.data;
-      var lum = new Float32Array(W * H);
-      for (var p = 0, i = 0; p < W * H; p++, i += 4) {
-        lum[p] = d[i + 3] ? (d[i] * .3 + d[i + 1] * .59 + d[i + 2] * .11) * (d[i + 3] / 255) + 255 * (1 - d[i + 3] / 255) : 255;
-      }
-      for (var y = 2; y < H; y++) {
-        for (var x = 2; x < W; x++) {
-          var q = y * W + x, k = q * 4;
-          if (!d[k + 3]) continue;
-          var nb = q - 2 * W - 2;
-          var e = (d[nb * 4 + 3] ? (lum[nb] - lum[q]) * .6 : 0) + (r() - .5) * 12;
-          d[k] = Math.max(0, Math.min(255, d[k] + e));
-          d[k + 1] = Math.max(0, Math.min(255, d[k + 1] + e));
-          d[k + 2] = Math.max(0, Math.min(255, d[k + 2] + e));
-        }
-      }
-      ctx.putImageData(img, 0, 0);
-    }
-    // 멀리 나는 작은 갈매기: 날개를 꺾어 그은 짧은 붓선 두 번
-    function smallGull(ctx, r, x, y, s) {
-      ctx.lineCap = 'round';
-      [[-1, 0], [1, 0]].forEach(function (d) {
-        for (var i = 0; i < 3; i++) {
-          ctx.beginPath();
-          ctx.moveTo(x, y + (r() - .5) * .6);
-          ctx.quadraticCurveTo(x + d[0] * s * .45, y - s * .55, x + d[0] * s, y - s * .1 + (r() - .5) * .8);
-          ctx.strokeStyle = i ? '#4A5866' : '#26323C';
-          ctx.globalAlpha = i ? .45 : .9;
-          ctx.lineWidth = i ? 1 : 1.7;
-          ctx.stroke();
-        }
-      });
-      ctx.globalAlpha = 1;
-    }
-    // 갈매기 한 마리: 회색 날개, 검은 날개 끝, 흰 몸, 노란 부리를 모두 붓질로
-    function gull(ctx, r, x, y, s, tilt, flap) {
-      var lift = .35 * flap;
-      function place() { ctx.translate(x, y); ctx.rotate(tilt); ctx.scale(s, s); }
-      function wing(side) {
-        return function () {
-          place();
-          ctx.beginPath();
-          ctx.moveTo(.06 * side, -.02);
-          ctx.quadraticCurveTo(.3 * side, -.3 - lift, .55 * side, -.32 - lift);
-          ctx.quadraticCurveTo(.8 * side, -.3 - lift * 1.2, 1.02 * side, -.12 - lift * 1.4);
-          ctx.quadraticCurveTo(.78 * side, -.16 - lift, .55 * side, -.14 - lift * .7);
-          ctx.quadraticCurveTo(.3 * side, -.08 - lift * .4, .08 * side, .1);
-          ctx.closePath();
-        };
-      }
-      function tip(side) {
-        return function () {
-          place();
-          ctx.beginPath();
-          ctx.moveTo(.76 * side, -.31 - lift * 1.15);
-          ctx.quadraticCurveTo(.92 * side, -.26 - lift * 1.3, 1.02 * side, -.12 - lift * 1.4);
-          ctx.quadraticCurveTo(.88 * side, -.14 - lift * 1.2, .74 * side, -.17 - lift * 1.05);
-          ctx.closePath();
-        };
-      }
-      function body() {
-        place();
-        ctx.beginPath();
-        ctx.ellipse(0, .03, .21, .08, 0, 0, Math.PI * 2);
-        ctx.moveTo(-.17, 0); ctx.lineTo(-.32, -.04); ctx.lineTo(-.31, .1); ctx.lineTo(-.15, .07); ctx.closePath();
-        ctx.moveTo(.295, -.01);
-        ctx.arc(.22, -.01, .075, 0, Math.PI * 2);
-      }
-      var box = [x - s * 1.1, y - s * .9, x + s * 1.1, y + s * .3];
-      [-1, 1].forEach(function (side) {
-        var a = tilt + (side < 0 ? -.35 : .35) * flap;
-        paintIn(ctx, r, wing(side), box, a, Math.max(1.2, s * .07), '#D3DCE3', .95, s * .5);
-        paintIn(ctx, r, wing(side), box, a, Math.max(1.2, s * .08), '#9AA9B5', .4, s * .3);
-        paintIn(ctx, r, tip(side), box, a, Math.max(1, s * .06), '#27313A', .95, s * .3);
-        roughEdge(ctx, r, wing(side), '#C9D3DB', .7, 2.4);
-        roughEdge(ctx, r, wing(side), '#4A5B69', .28, .9);
-        roughEdge(ctx, r, tip(side), '#27313A', .6, 1.8);
-      });
-      paintIn(ctx, r, body, box, tilt, Math.max(1, s * .05), '#FFFFFF', 1, s * .35);
-      paintIn(ctx, r, body, box, tilt, Math.max(1, s * .06), '#C3CED7', .3, s * .2);
-      roughEdge(ctx, r, body, '#F4F7F9', .8, 2.2);
-      roughEdge(ctx, r, body, '#4A5B69', .25, .8);
-      // 눈과 부리: 작은 붓 점
-      var c = Math.cos(tilt), sn = Math.sin(tilt);
-      function at(px, py) { return [x + (px * c - py * sn) * s, y + (px * sn + py * c) * s]; }
-      var e = at(.24, -.025), b = at(.29, 0);
-      stroke(ctx, r, e[0] - .8, e[1], 1.6, 0, 1.6, '#1E262D', 1);
-      stroke(ctx, r, b[0], b[1], s * .1, tilt + .08, Math.max(1.6, s * .05), '#EDB13A', 1);
-    }
-    // 고깃배: 선체·조타실·돛대·깃발을 모두 붓질로
-    function boat(ctx, r, x, y, k) {
-      // 물에 비친 그림자와 뱃길
-      for (var i = 0; i < 4; i++) {
-        stroke(ctx, r, x - 30 * k + r() * 8, y + (4 + i * 3) * k, (44 - i * 6) * k, 0, 2.5, '#1E4E78', .35);
-      }
-      for (var j = 0; j < 3; j++) {
-        stroke(ctx, r, x - (78 - j * 6) * k, y + (1 + j * 3) * k, (40 - j * 8) * k, -.03, 2.5, '#FFFFFF', .85);
-      }
-      function place() { ctx.translate(x, y); ctx.scale(k, k); }
-      function hull() {
-        place();
-        ctx.beginPath();
-        ctx.moveTo(-34, -5);
-        ctx.lineTo(38, -9);
-        ctx.quadraticCurveTo(32, 2, 26, 7);
-        ctx.lineTo(-26, 7);
-        ctx.quadraticCurveTo(-31, 2, -34, -5);
-        ctx.closePath();
-      }
-      function cabin() { place(); ctx.beginPath(); ctx.rect(-14, -18, 20, 14); }
-      function roof() { place(); ctx.beginPath(); ctx.moveTo(-16, -18); ctx.lineTo(8, -18); ctx.lineTo(6, -22); ctx.lineTo(-14, -22); ctx.closePath(); }
-      function flag() { place(); ctx.beginPath(); ctx.moveTo(14, -34); ctx.lineTo(26, -30); ctx.lineTo(14, -26); ctx.closePath(); }
-      var box = [x - 40 * k, y - 36 * k, x + 42 * k, y + 10 * k];
-      var step = Math.max(1.1, 1.6 * k);
-      // 돛대와 줄
-      stroke(ctx, r, x + 14 * k, y - 6 * k, 28 * k, -Math.PI / 2, 2.2, '#2A3A48', .95);
-      stroke(ctx, r, x + 14 * k, y - 30 * k, 41 * k, Math.atan2(24, -34), 1.2, '#2A3A48', .55);
-      paintIn(ctx, r, flag, box, 0, step * .8, '#D9483B', 1, 8 * k);
-      roughEdge(ctx, r, flag, '#D9483B', .7, 1.6);
-      // 조타실과 파란 지붕, 창문
-      paintIn(ctx, r, cabin, box, 0, step, '#FBFCFD', 1, 12 * k);
-      paintIn(ctx, r, cabin, box, -Math.PI / 2, step, '#C9D4DD', .3, 8 * k);
-      roughEdge(ctx, r, cabin, '#EEF2F5', .8, 2.4);
-      roughEdge(ctx, r, cabin, '#2E3E4C', .3, .9);
-      paintIn(ctx, r, roof, box, 0, step * .8, '#1F5D93', 1, 14 * k);
-      roughEdge(ctx, r, roof, '#1F5D93', .7, 1.6);
-      stroke(ctx, r, x - 11 * k, y - 12.5 * k, 5 * k, 0, 4.5 * k, '#7FBCE4', 1);
-      stroke(ctx, r, x - 3 * k, y - 12.5 * k, 5 * k, 0, 4.5 * k, '#7FBCE4', 1);
-      // 선체: 흰 바탕 위에 파란 띠, 빨간 띠를 덧칠
-      paintIn(ctx, r, hull, box, -.03, step, '#FBFCFD', 1, 26 * k);
-      var base = ctx.getTransform();
-      ctx.save();
-      hull();
-      ctx.setTransform(base);
-      ctx.clip();
-      for (var t = 0; t < 3; t++) stroke(ctx, r, x - 40 * k, y + (-1.3 + t * 1.2) * k, 84 * k, -.02, 1.8 * k, '#1F5D93', .95);
-      for (var u = 0; u < 4; u++) stroke(ctx, r, x - 40 * k, y + (4.4 + u * 1.2) * k, 84 * k, -.01, 2 * k, '#C8413A', .95);
-      ctx.restore();
-      roughEdge(ctx, r, hull, '#2E3E4C', .3, 1);
-      // 선체 위쪽 빛 받은 붓자국
-      for (var q = 0; q < 3; q++) stroke(ctx, r, x - (20 - q * 14) * k, y - (6.5 - q * .4) * k, 12 * k, -.05, 1.6, '#FFFFFF', .9);
-    }
-    // 두 색 사이의 색
-    function mix(a, b, t) {
-      var x = toRgb(a), y = toRgb(b);
-      function h(v) { v = Math.round(v); return (v < 16 ? '0' : '') + v.toString(16); }
-      return '#' + h(x[0] + (y[0] - x[0]) * t) + h(x[1] + (y[1] - x[1]) * t) + h(x[2] + (y[2] - x[2]) * t);
-    }
-    function ramp(stops, t) {
-      t = Math.max(0, Math.min(.999, t));
-      var f = t * (stops.length - 1), i = Math.floor(f);
-      return mix(stops[i], stops[i + 1], f - i);
-    }
-    // 하늘을 나는 갈매기: 흰 날개를 꺾어 두 번 칠하고, 날개 끝은 어둡게
-    function seaGull(ctx, r, x, y, s, flap) {
-      [-1, 1].forEach(function (d) {
-        var up = -.55 - flap * .25;
-        var ex = x + d * s * .5, ey = y + s * up * .6;
-        var ang1 = Math.atan2(ey - y, ex - x);
-        var ang2 = Math.atan2(s * (.18 + flap * .1), d * s * .55);
-        stroke(ctx, r, x, y + s * .07, s * .56, ang1, s * .09, '#5E6E7C', .85);
-        stroke(ctx, r, ex, ey + s * .05, s * .5, ang2, s * .07, '#5E6E7C', .8);
-        stroke(ctx, r, x, y, s * .58, ang1, s * .17, '#FFFFFF', 1);
-        stroke(ctx, r, ex, ey, s * .5, ang2, s * .13, '#F4F7FA', 1);
-        stroke(ctx, r, ex + Math.cos(ang2) * s * .32, ey + Math.sin(ang2) * s * .32, s * .2, ang2, s * .07, '#2A333C', .9);
-      });
-      stroke(ctx, r, x - s * .12, y + s * .05, s * .3, 0, s * .06, '#5E6E7C', .7);
-      stroke(ctx, r, x - s * .12, y + s * .02, s * .3, 0, s * .11, '#FFFFFF', 1);
-    }
-    function paintScene(canvas) {
-      var c = setup(canvas); if (!c) return;
-      var r = rng(31), ctx = c.ctx, w = c.w, h = c.h;
-      var hz = h * .5;                                    // 수평선
-      var sunX = w * .2, sunY = h * .17;                   // 해
-
-      // 1. 하늘: 위는 짙은 하늘빛, 수평선 쪽은 맑고 옅게. 짧은 붓질을 빽빽하게
-      var sky = ['#2E6CB8', '#4688CC', '#6FA8DC', '#A9CDEB', '#D9EAF6'];
-      var g = ctx.createLinearGradient(0, 0, 0, hz);
-      sky.forEach(function (col, i) { g.addColorStop(i / (sky.length - 1), col); });
-      ctx.fillStyle = g; ctx.fillRect(0, 0, w, hz + 2);
-      for (var y = 0; y < hz; y += 3) {
-        for (var x = -20; x < w; x += 9 + r() * 10) {
-          var t = y / hz + (r() - .5) * .12;
-          stroke(ctx, r, x, y, 12 + r() * 16, (r() - .5) * .3, 5 + r() * 3, ramp(sky, t), .8);
-        }
-      }
-      // 2. 햇살: 해 둘레에 따뜻한 빛을 둥글게 덧칠하고, 비스듬한 빛줄기
-      for (var k = 0; k < 150; k++) {
-        var a = r() * Math.PI * 2, d = Math.pow(r(), 1.6) * w * .13;
-        var tt = d / (w * .13);
-        stroke(ctx, r, sunX + Math.cos(a) * d, sunY + Math.sin(a) * d * .8, 8 + r() * 12, a + Math.PI / 2 + (r() - .5) * .5, 4 + r() * 3,
-          ramp(['#FFFDF0', '#FFF1BF', '#F9DC8C', '#F3C9A8'], tt), .85 * (1 - tt * .7));
-      }
-      for (var b = 0; b < 7; b++) {
-        var ra = .35 + b * .17 + (r() - .5) * .05;
-        stroke(ctx, r, sunX, sunY, w * (.25 + r() * .2), ra, 8 + r() * 6, '#FFF6D6', .09);
-      }
-      // 3. 구름: 둥근 덩어리마다 위는 희고, 아래는 푸른 그늘, 군데군데 분홍·노랑 빛
-      [[.7, .16, .2, .1], [.9, .34, .13, .07], [.06, .42, .12, .05]].forEach(function (cl) {
-        var cx = cl[0] * w, cy = cl[1] * h, rw = cl[2] * w, rh = cl[3] * h * 1.4;
-        var lobes = [];
-        for (var l = 0; l < 6; l++) lobes.push([cx + (r() - .5) * rw * 1.4, cy + (r() - .3) * rh * .7, rw * (.3 + r() * .3)]);
-        for (var n = 0; n < rw * rh / 6; n++) {
-          var lb = lobes[Math.floor(r() * lobes.length)];
-          var aa = r() * Math.PI * 2, dd = Math.sqrt(r()) * lb[2];
-          var px = lb[0] + Math.cos(aa) * dd, py = lb[1] + Math.sin(aa) * dd * .55;
-          var low = (py - (cy - rh * .5)) / rh;
-          var pick = r();
-          var col = low > .65 ? (pick < .6 ? '#AFC0DC' : '#C9D3E8') : pick < .62 ? '#FFFFFF' : pick < .78 ? '#F7E9F0' : pick < .9 ? '#F8D9DF' : '#FBEBB8';
-          stroke(ctx, r, px, py, 6 + r() * 10, (r() - .5) * 1.2, 4 + r() * 3, col, .9);
-        }
-      });
-
-      // 4. 바위섬 두 개 (스케치대로 왼쪽은 크고 각지게, 오른쪽은 작게). 해가 왼쪽이라 왼쪽 비탈이 밝다
-      var islands = [
-        { pts: [[.04, 0], [.11, .45], [.18, .92], [.25, 1], [.31, .96], [.33, .74], [.37, .66], [.44, .3], [.48, 0]], hgt: .2, haze: 0 },
-        { pts: [[.62, 0], [.66, .42], [.71, .66], [.75, .78], [.78, .62], [.82, .4], [.87, 0]], hgt: .12, haze: .35 }
-      ];
-      islands.forEach(function (isl) {
-        var xy = isl.pts.map(function (p) { return [p[0] * w + (r() - .5) * 2, hz + 1 - p[1] * isl.hgt * h + (r() - .5) * 2]; });
-        var x0 = xy[0][0], x1 = xy[xy.length - 1][0], top = hz - isl.hgt * h;
-        ctx.save();
-        ctx.beginPath();
-        xy.forEach(function (p, i) { if (i) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]); });
-        ctx.closePath();
-        ctx.clip();
-        ctx.fillStyle = mix('#2E5446', '#6E86A6', isl.haze);
-        ctx.fillRect(x0, top - 4, x1 - x0, hz - top + 6);
-        var peak = xy.reduce(function (m, p) { return p[1] < m[1] ? p : m; }, xy[0])[0];
-        for (var q = 0; q < (x1 - x0) * (hz - top) / 7; q++) {
-          var px = x0 + r() * (x1 - x0), py = top + r() * (hz - top);
-          var lit = px < peak ? 1 : 0, lowp = (py - top) / (hz - top);
-          var pal = lit ? ['#7FA36A', '#9DBF7E', '#5E8C5A', '#C7C08A'] : ['#2F5A48', '#3E6A55', '#4C5F78', '#2A4A44'];
-          var col = mix(pal[Math.floor(r() * pal.length)], '#7C8FB0', isl.haze + lowp * .25);
-          stroke(ctx, r, px, py, 6 + r() * 9, (lit ? -.9 : .9) + (r() - .5) * .5, 3 + r() * 3, col, .9);
-        }
-        ctx.restore();
-      });
-
-      // 5. 바다: 수평선은 짙은 군청, 가까울수록 맑은 청록. 가로로 끌어 칠한 붓질
-      var sea = ['#183F92', '#1E52A8', '#2468B8', '#2F86C4', '#3FA2CB', '#55BACF'];
-      var sg = ctx.createLinearGradient(0, hz, 0, h);
-      sea.forEach(function (col, i) { sg.addColorStop(i / (sea.length - 1), col); });
-      ctx.fillStyle = sg; ctx.fillRect(0, hz, w, h - hz);
-      for (var y2 = hz + 1; y2 < h + 4; y2 += 2.4) {
-        var depth = (y2 - hz) / (h - hz);
-        for (var x2 = -30; x2 < w; x2 += 10 + r() * 14) {
-          var pk = r();
-          var col2 = pk < .78 ? ramp(sea, depth + (r() - .5) * .15) : pk < .9 ? '#123478' : pk < .96 ? '#7FD0DD' : '#E6F4FA';
-          stroke(ctx, r, x2, y2, 14 + depth * 30 + r() * 20, (r() - .5) * .06, 2.5 + depth * 3, col2, .85);
-        }
-      }
-      // 섬 그림자가 물에 비침
-      [[.06, .46], [.63, .86]].forEach(function (rf, i) {
-        for (var m = 0; m < 26; m++) {
-          stroke(ctx, r, rf[0] * w + r() * (rf[1] - rf[0]) * w * .9, hz + 2 + r() * h * (i ? .04 : .07), 10 + r() * 18, 0, 2.5, i ? '#3E5C8E' : '#1E3F5E', .5);
-        }
-      });
-      // 6. 햇빛이 물에 반짝이는 길: 해 아래로 따뜻한 빛 조각
-      for (var gL = 0; gL < 170; gL++) {
-        var gy = hz + 3 + Math.pow(r(), 1.3) * (h - hz) * .95;
-        var spread = 8 + (gy - hz) * .55;
-        var gx = sunX + (r() - .5) * spread * 2;
-        stroke(ctx, r, gx, gy, 4 + r() * 12, (r() - .5) * .1, 1.6 + r() * 2.2, r() < .6 ? '#FFF4CE' : '#FFFFFF', .9);
-      }
-      // 7. 물결: 앞쪽에 흰 거품이 부서지는 물결 두 줄
-      [[.8, .5, 5], [.92, .7, 7]].forEach(function (wv, wi) {
-        var wy = h * wv[0];
-        for (var wx = -10; wx < w + 10; wx += 5) {
-          var yy = wy + Math.sin(wx / w * Math.PI * 3 + wi) * 4 + (r() - .5) * 2;
-          if (r() < .2) continue;
-          stroke(ctx, r, wx, yy + wv[2] * .7, 10 + r() * 8, (r() - .5) * .2, 3, '#1C6E91', .55);
-          stroke(ctx, r, wx, yy, 7 + r() * 10, (r() - .5) * .35, 2.5 + r() * 2.5, r() < .8 ? '#FFFFFF' : '#CFEFF5', .95);
-          if (r() < .25) stroke(ctx, r, wx + r() * 6, yy - 3 - r() * 4, 3 + r() * 4, -.5, 2, '#FFFFFF', .9);
-        }
-      });
-      // 먼 바다의 작은 물비늘
-      for (var gi = 0; gi < 40; gi++) {
-        stroke(ctx, r, r() * w, hz + 4 + r() * (h - hz) * .55, 4 + r() * 10, 0, 1.6, '#DDF0F8', .8);
-      }
-
-      // 8. 배 (물에 비친 그림자 포함)
-      boat(ctx, r, w * .64, hz + (h - hz) * .42, Math.min(.8, w / 500));
-
-      // 9. 갈매기
-      [[.5, .33, 1, .6], [.56, .25, .8, -.2], [.55, .42, .65, .3], [.44, .44, .5, -.4], [.36, .1, .7, .4]].forEach(function (gl) {
-        seaGull(ctx, r, gl[0] * w, gl[1] * h, gl[2] * Math.min(26, w * .06), gl[3]);
-      });
-
-      canvasWeave(ctx, w, h);
-    }
-    function render() {
-      paintScene(document.getElementById('painting'));
-    }
-    render();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
-    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(render, 150); });
 
     var cue = document.querySelector('.scroll-cue');
     function cueCheck() { cue.classList.toggle('gone', window.scrollY > 30); }
