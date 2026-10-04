@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-10.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-11.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
@@ -81,6 +81,7 @@
     position: absolute;
     left: 0; right: 0;
     bottom: 10px;
+    z-index: 1;
     margin: 0;
     transition: opacity .3s;
     color: #FFFFFF;
@@ -120,14 +121,22 @@
     row-gap: 16px;
     text-align: left;
   }
-  .hero .facts {
-    background: rgba(255,255,255,.9);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    border-radius: 14px;
-    padding: 16px 20px;
-    box-shadow: 0 8px 24px -12px rgba(10,30,60,.5);
+  /* 일시·장소: 상자 없이 그림 위에 흰 글씨. 아래쪽 바다만 은은하게 어둡게 깔아 글자를 띄운다 */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 45%;
+    background: linear-gradient(0deg, rgba(8,24,52,.72) 0%, rgba(8,24,52,.45) 55%, rgba(8,24,52,0) 100%);
+    pointer-events: none;
   }
+  .hero .facts {
+    z-index: 1;
+    color: #FFFFFF;
+    text-shadow: 0 1px 3px rgba(5,18,40,.7), 0 2px 12px rgba(5,18,40,.5);
+  }
+  .hero .fact p small { color: rgba(255,255,255,.88); }
+  .hero .pill { background: rgba(255,255,255,.94); color: var(--navy); text-shadow: none; font-weight: 700; }
   .fact { display: contents; }
   /* 표시 높이를 오른쪽 첫 줄 높이(17px × 1.6)와 똑같이 맞춰 가운데가 일치하게 */
   .fact .pill { justify-self: stretch; text-align: center; align-self: start; line-height: calc(17px * 1.6); padding-block: 0; }
