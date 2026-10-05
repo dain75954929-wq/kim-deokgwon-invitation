@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="제2회 김덕권 개인전에 초대합니다">
 <meta property="og:description" content="11월 21일(토)~29일(일) 통영시민문화회관 제1전시실">
-<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-16.png">
+<meta property="og:image" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/preview-17.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://dain75954929-wq.github.io/kim-deokgwon-invitation/">
@@ -74,15 +74,6 @@
     pointer-events: none;
   }
   .hero > .title-block, .hero > .facts { z-index: 2; }
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 42%;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(70,32,6,.4), rgba(70,32,6,0));
-    pointer-events: none;
-  }
   /* 스크롤 안내: 첫 화면 맨 아래, 내리기 시작하면 사라짐 */
   .scroll-cue {
     position: absolute;
@@ -99,7 +90,7 @@
     justify-content: center;
     align-items: center;
     gap: 4px;
-    text-shadow: 0 1px 6px rgba(10,30,60,.7);
+    text-shadow: 0 1px 2px rgba(30,12,0,.85), 0 1px 8px rgba(30,12,0,.6);
   }
   .scroll-cue svg { width: 16px; height: 16px; }
   .scroll-cue.gone { opacity: 0; pointer-events: none; }
@@ -114,7 +105,7 @@
     align-items: center;
     gap: 10px;
     color: #FFFFFF;
-    text-shadow: 0 1px 3px rgba(10,30,60,.55), 0 2px 16px rgba(10,30,60,.45);
+    text-shadow: 0 1px 2px rgba(30,12,0,.75), 0 2px 14px rgba(30,12,0,.55);
   }
   h1 { font-weight: 700; font-size: clamp(38px, 12vw, 52px); line-height: 1.3; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
   .edition { font-size: 17px; font-weight: 500; letter-spacing: .06em; }
@@ -129,15 +120,6 @@
     row-gap: 16px;
     text-align: left;
   }
-  /* 일시·장소: 상자 없이 그림 위에 흰 글씨. 아래쪽 바다만 은은하게 어둡게 깔아 글자를 띄운다 */
-  .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(40,18,4,0) 27%, rgba(40,18,4,.42) 34%, rgba(40,18,4,.42) 44%, rgba(40,18,4,0) 51%, rgba(40,18,4,0) 90%, rgba(40,18,4,.35) 100%);
-    pointer-events: none;
-  }
   .hero .facts {
     position: absolute;
     top: 33%;
@@ -148,12 +130,12 @@
     max-width: calc(100% - 32px);
     z-index: 2;
     color: #FFFFFF;
-    text-shadow: 0 1px 3px rgba(5,18,40,.7), 0 2px 12px rgba(5,18,40,.5);
+    text-shadow: 0 1px 2px rgba(30,12,0,.85), 0 2px 10px rgba(30,12,0,.6);
   }
   .hero .fact p { font-size: 16px; line-height: 1.45; }
   .hero .fact p small { font-size: 14px; color: rgba(255,255,255,.88); }
   .hero .fact .pill { line-height: calc(16px * 1.45); font-size: 14px; }
-  .hero .pill { background: rgba(255,255,255,.94); color: var(--navy); text-shadow: none; font-weight: 700; }
+  .hero .pill { background: rgba(255,255,255,.94); color: var(--navy); text-shadow: none; font-weight: 700; box-shadow: 0 1px 6px rgba(30,12,0,.35); }
   .fact { display: contents; }
   /* 표시 높이를 오른쪽 첫 줄 높이(17px × 1.6)와 똑같이 맞춰 가운데가 일치하게 */
   .fact .pill { justify-self: stretch; text-align: center; align-self: start; line-height: calc(17px * 1.6); padding-block: 0; }
