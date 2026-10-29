@@ -200,6 +200,16 @@
   .closing-block { display: flex; flex-direction: column; align-items: center; gap: 16px; padding-block: 20px 12px; }
   .closing { font-size: 18px; line-height: 2; color: var(--ink); }
   .from { font-size: 17px; font-weight: 500; letter-spacing: .1em; }
+  /* 맨 마지막 줄: 누르면 바로 전화가 걸리는 연락처 */
+  .contact {
+    font-size: 16px;
+    color: var(--muted);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .04em;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1px;
+  }
 
   /* 오시는 길 */
   .map-img {
@@ -332,6 +342,7 @@
     <div class="closing-block">
       <p class="closing">귀한 걸음 하시어<br>자리를 빛내 주시면<br>더없는 기쁨이겠습니다.</p>
       <p class="from">김덕권 드림</p>
+      <a class="contact" href="tel:01040879490">연락처 010-4087-9490</a>
     </div>
   </div>
 </main>
